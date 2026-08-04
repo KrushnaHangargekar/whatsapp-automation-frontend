@@ -47,23 +47,18 @@ export function Navbar() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-3'}`}>
+    <header className="sticky top-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-3">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`transition-all duration-500 rounded-2xl ${
-          scrolled 
-            ? 'bg-white/90 dark:bg-[#111b21]/90 backdrop-blur-xl shadow-md border border-slate-200/80 dark:border-slate-800/80 px-4 py-2' 
-            : 'bg-white/80 dark:bg-[#111b21]/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 px-4 py-2.5'
-        }`}>
-          <div className="flex items-center justify-between">
-            {/* Brand Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-[#006d2f] flex items-center justify-center text-white font-black shadow-sm group-hover:scale-105 transition-transform duration-300">
-                <MessageSquare className="w-4 h-4 fill-current" />
-              </div>
-              <span className="font-extrabold text-2xl tracking-tight text-[#006d2f] dark:text-[#25D366]">
-                Wabtic
-              </span>
-            </Link>
+        <div className="flex items-center justify-between">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-md bg-[#006d2f] flex items-center justify-center text-white font-bold">
+              <MessageSquare className="w-4 h-4 fill-current" />
+            </div>
+            <span className="font-bold text-xl tracking-tight text-[#006d2f] dark:text-[#25D366]">
+              Wabtic
+            </span>
+          </Link>
 
             {/* Desktop Nav Links */}
             <nav className="hidden md:flex items-center gap-1 lg:gap-2">
@@ -149,7 +144,6 @@ export function Navbar() {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
