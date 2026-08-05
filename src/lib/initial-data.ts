@@ -4,68 +4,94 @@ export const INITIAL_PRICING_PLANS: PricingPlan[] = [
   {
     id: 'plan-growth',
     title: 'Growth',
-    price: '₹1,759',
-    originalPrice: '₹2,199',
+    annualPrice: '₹2199',
+    annualOriginalPrice: '₹2749',
+    monthlyPrice: '₹2699',
+    monthlyOriginalPrice: '₹3374',
     subtitle: 'Reach thousands of customers with automations that keep conversations moving 24*7',
-    period: '/month billed annually (20% OFF)',
-    conversations: 'Connect any 1 Channel. 3 Users Included. No additional users.',
-    apiAccess: 'Standard REST API',
-    support: '24x5 Email Support',
-    integrations: ['Webhooks', 'REST API', 'CRM Sync'],
+    conversations: 'Connect any 1 Channel. 3 Users Included. No additional users. Additional charges apply for messages',
+    featuresHeader: 'Key features',
     features: [
-      'WhatsApp Marketing Campaigns',
-      'Bulk Message Sending',
-      'Live Insights & Analytics',
-      'AI Automation Reply Bots',
-      'Campaign Schedule',
-      'Zero-fee WhatsApp Setup & Blue Tick Help'
+      'Zero-fee WhatsApp setup: Get Official WhatsApp API, Blue Tick Verification help',
+      'Omnichannel inbox: WhatsApp Messages, WhatsApp Business Calling, FB, Instagram, QR code, widget, wa.me',
+      'Campaigns: Run broadcast campaigns, automate DM and comment engagement on Instagram and FB Messenger',
+      'Acquire leads: Launch CTWA ads and capture leads on WhatsApp',
+      'Team inbox staples: Assign, track, automate follow-ups, tag & report',
+      'E-Commerce tools: WhatsApp Catalog, Shopify abandon cart & order templates',
+      '24x5 Email Support: in English and Portuguese, with basic SLA coverage'
+    ],
+    usage: [
+      '15k Broadcasts/month, Standard rates',
+      '1,000 Free Automation triggers/month',
+      '2 select Commerce/CRM integrations',
+      '10k API calls/mon, No Webhooks',
+      '250 Free AI Co-pilot credits/mon'
     ],
     active: true,
-    highlight: false
+    highlight: false,
+    cardColor: 'blue'
   },
   {
     id: 'plan-pro',
     title: 'Pro',
-    price: '₹3,919',
-    originalPrice: '₹4,899',
+    annualPrice: '₹4899',
+    annualOriginalPrice: '₹6124',
+    monthlyPrice: '₹6499',
+    monthlyOriginalPrice: '₹8124',
     subtitle: 'Turn conversations into conversions. AI qualify leads, nurtures them, and built-in analytics show you what\'s driving revenue.',
-    period: '/month billed annually (20% OFF)',
-    conversations: '5 Users Included. Additional Users @ ₹1299/user/month',
-    apiAccess: 'High Speed API',
-    support: '24x7 Email & Live Chat Support',
-    integrations: ['Webhooks', 'REST API', 'CRM Sync'],
+    conversations: '5 Users Included. Additional Users @ ₹1299/user/month. Additional charges apply for messages',
+    featuresHeader: 'Everything in Growth, plus:',
     features: [
-      'Everything in Growth, plus:',
-      'WhatsApp Marketing (Advanced Retargeting)',
-      'Bulk Message Sending (High Capacity)',
-      'Live Insights & Click Tracking Insights',
-      'AI Automation Reply Bots (Smart Lead Qualification)',
-      'Campaign Schedule & Auto-routing'
+      'Auto-qualify leads: Advanced chatbots, forms, integrations & IG automation',
+      'Boost conversion: Smart retargeting, Carousel template & Catalog pay options',
+      'Optimize Campaigns: CTWA source tags, click tracking & engagement insights',
+      '✨ Advanced Automation: Answer queries, collect information, send reminders & more with powerful chatbots',
+      '✨ Astra AI Agents: Create and deploy AI Agents to web, WhatsApp and voice (Astra add-on, priced separately)',
+      'Advanced team inbox: Teams, auto routing, and operator reports',
+      'Drive Shopify sales: Campaign based on buyer data, Shopflo/Gokwik checkout',
+      '24x7 Email & Chat Support: Standard SLAs to support your operations'
+    ],
+    usage: [
+      'Unlimited Broadcasts, Standard rates',
+      '2,000 Free Automation triggers/month',
+      '5 integrations incl. Hubspot',
+      '200k API calls/mon, Limited Webhooks',
+      '500 Free AI Co-pilot credits/mon'
     ],
     active: true,
-    highlight: true
+    highlight: true,
+    cardColor: 'emerald'
   },
   {
     id: 'plan-business',
     title: 'Business',
-    price: '₹11,839',
-    originalPrice: '₹14,799',
-    subtitle: 'Your full revenue engine. Advanced AI agents + multiple numbers to handle entire customer journeys with dedicated expert support.',
-    period: '/month billed annually (20% OFF)',
-    conversations: '5 Users Included. Additional Users @ ₹2199/user/month',
-    apiAccess: 'High Throughput Dedicated API',
-    support: 'Priority 24x7 Email & Chat Support + Dedicated TAM',
-    integrations: ['All CRM Systems', 'Zapier', 'Webhooks'],
+    annualPrice: '₹14799',
+    annualOriginalPrice: '₹18499',
+    monthlyPrice: '₹18499',
+    monthlyOriginalPrice: '₹23124',
+    subtitle: 'Your full revenue engine. Advanced AI agents + multiple numbers to handle entire customer journeys: with dedicated expert support.',
+    conversations: '5 Users Included. Additional Users @ ₹2199/user/month. Additional charges apply for messages',
+    featuresHeader: 'Everything in Pro +',
     features: [
-      'Everything in Pro, plus:',
-      'WhatsApp Marketing (Unlimited Scale)',
-      'Bulk Message Sending (4k messages/min)',
-      'Live Insights & Custom BI Reports',
-      'AI Automation Reply Bots (Multiple WhatsApp Numbers)',
-      'Dedicated Customer Success Manager'
+      'Scale effortlessly: Send 4k messages/min, get volume discounts & SMS fallback',
+      'G Official Google Partner: Asia\'s only Google Ads to WhatsApp Provider',
+      'Best-in-class ROI: Optimize CTWA ads, track conversion, use WhatsApp Pay API',
+      'Run teams smoothly: Multiple WhatsApp numbers & round-robin chat assignment',
+      'Dedicated Customer Success Manager for strategic recommendations',
+      'Enhance privacy & compliance: Phone number masking, Roles & IP Whitelisting',
+      'Priority 24x7 Email & Chat support, with access to paid TAM services'
+    ],
+    usage: [
+      'Unlimited Broadcasts, Volume discounts',
+      '5,000 Free Automation triggers/month',
+      'Unlimited integrations incl. Salesforce',
+      '20M API calls/mon, Extensive Webhooks',
+      '1500 Free AI Co-pilot credits/mon',
+      'Blitz add-on: Send 12k messages/min'
     ],
     active: true,
-    highlight: false
+    highlight: false,
+    cardColor: 'purple'
   }
 ];
 

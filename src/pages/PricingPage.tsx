@@ -7,7 +7,9 @@ import {
   Star,
   Zap,
   Calculator,
-  Tag
+  Tag,
+  Info,
+  Sparkles
 } from 'lucide-react';
 import { INITIAL_PRICING_PLANS, WATI_FAQS } from '@/lib/initial-data';
 import { NavTab } from '@/types';
@@ -24,147 +26,161 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
   const metaFeeEst = Math.round(calcVolume * 0.008);
 
   return (
-    <div className="pt-12 pb-24 space-y-20">
+    <div className="pt-10 pb-24 space-y-16">
       
-      {/* Header Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/30 text-xs font-extrabold animate-pulse">
-          <Tag className="w-4 h-4 text-[#25D366]" />
-          <span>Special Offer: 20% OFF Everything — Limited Time Only!</span>
-        </div>
-
-        <h1 className="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
-          Simple, Transparent <span className="text-[#25D366]">Wabtic Pricing</span>
+      {/* Header Banner matching screenshot */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          7 days free trial, zero setup fees and affordable pricing
         </h1>
 
-        <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-normal">
-          Pick the plan that fits your business stage. Every plan includes 20% OFF original pricing, zero setup fees, and instant access to all core features.
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium">
+          Up to -25% off & <span className="underline font-semibold">free dedicated onboarding</span> with annual subscription
         </p>
 
-        {/* Trust Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-bold text-slate-600 dark:text-slate-400 pt-2">
-          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 shadow-sm">
-            <div className="flex text-amber-400">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-current" />
-              ))}
-            </div>
-            <span>4.9 / 5 Rating (3,500+ Reviews)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#25D366]" />
-            Official Meta API Partner
-          </div>
-        </div>
-
-        {/* Monthly vs Annual Toggle */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <div className="flex items-center gap-2 p-1 bg-slate-200/80 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-800">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-5 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
-                !annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-md' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              Monthly Billing
-            </button>
+        {/* Toggle Pills: Annual / Monthly */}
+        <div className="pt-4 flex items-center justify-center gap-2">
+          <div className="flex items-center gap-1.5 p-1 bg-slate-200/80 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-800">
             <button
               onClick={() => setAnnual(true)}
-              className={`px-5 py-2 rounded-full text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
-                annual ? 'bg-[#25D366] text-slate-950 shadow-md font-black' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                annual 
+                  ? 'bg-emerald-400 text-slate-950 shadow' 
+                  : 'text-slate-600 dark:text-slate-400 hover:text-white'
               }`}
             >
-              Annual Billing
-              <span className="w-2 h-2 rounded-full bg-slate-950 animate-ping" />
+              Annual
+            </button>
+            <button
+              onClick={() => setAnnual(false)}
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                !annual 
+                  ? 'bg-emerald-400 text-slate-950 shadow' 
+                  : 'text-slate-600 dark:text-slate-400 hover:text-white'
+              }`}
+            >
+              Monthly
             </button>
           </div>
-
-          <span className="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-bold text-xs shadow-sm">
-            🔥 20% OFF Applied on All Plans!
-          </span>
         </div>
       </section>
 
       {/* 3 Pricing Cards Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {INITIAL_PRICING_PLANS.map((plan) => {
+            const currentPrice = annual ? plan.annualPrice : plan.monthlyPrice;
+            const originalPrice = annual ? plan.annualOriginalPrice : plan.monthlyOriginalPrice;
+            const billingText = annual ? 'billed annually' : 'billed monthly';
+
+            const cardBorder = 
+              plan.id === 'plan-growth' ? 'border-sky-300 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-950/20' :
+              plan.id === 'plan-pro' ? 'border-emerald-400 dark:border-emerald-700 bg-emerald-50/40 dark:bg-emerald-950/20' :
+              'border-pink-300 dark:border-pink-800 bg-pink-50/40 dark:bg-pink-950/20';
+
+            const buttonStyle = 
+              plan.id === 'plan-growth' ? 'bg-sky-400 hover:bg-sky-500 text-slate-950 shadow' :
+              plan.id === 'plan-pro' ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950 shadow' :
+              'bg-pink-300 hover:bg-pink-400 text-slate-950 shadow';
+
             return (
               <div
                 key={plan.id}
-                className={`bg-white dark:bg-slate-900 p-7 sm:p-8 rounded-3xl border flex flex-col justify-between transition-all duration-300 relative ${
-                  plan.highlight
-                    ? 'border-[#25D366] shadow-2xl shadow-[#25D366]/20 ring-2 ring-[#25D366]/40 lg:-translate-y-2 z-10'
-                    : 'border-slate-200 dark:border-slate-800 hover:border-[#25D366]/50'
-                }`}
+                className={`rounded-3xl p-6 sm:p-7 border-2 flex flex-col justify-between transition-all duration-300 relative shadow-lg ${cardBorder}`}
               >
                 {plan.highlight && (
-                  <div className="absolute -top-3.5 right-6 px-4 py-1 rounded-full bg-[#25D366] text-slate-950 text-xs font-black uppercase tracking-wider shadow-md">
+                  <div className="absolute -top-3.5 right-6 px-4 py-1 rounded-full bg-amber-300 text-slate-950 text-xs font-black border border-amber-400 shadow-sm">
                     Best Value
                   </div>
                 )}
 
-                <div>
-                  <div className="mb-6 space-y-2">
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{plan.title}</h3>
-                    {plan.subtitle && (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal min-h-[36px]">
-                        {plan.subtitle}
-                      </p>
-                    )}
-                    
-                    {/* Price with 20% Discount */}
-                    <div className="pt-2">
-                      <div className="flex items-center gap-2">
-                        {plan.originalPrice && (
-                          <span className="text-lg font-bold text-slate-400 line-through">
-                            {plan.originalPrice}
-                          </span>
-                        )}
-                        <span className="px-2 py-0.5 rounded-md bg-[#25D366]/15 text-[#25D366] text-xs font-black">
-                          20% OFF
+                <div className="space-y-6">
+                  {/* Header Title & Subtitle */}
+                  <div>
+                    <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">{plan.title}</h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed min-h-[40px]">
+                      {plan.subtitle}
+                    </p>
+                  </div>
+
+                  {/* Price Section with Strike-through Original Price & 20% OFF */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      {originalPrice && (
+                        <span className="text-sm font-bold text-slate-400 line-through">
+                          {originalPrice}
                         </span>
-                      </div>
-                      <div className="flex items-baseline gap-1.5 mt-1">
-                        <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{plan.price}</span>
-                        <span className="text-xs font-semibold text-slate-400">{plan.period}</span>
+                      )}
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold">
+                        20% OFF
+                      </span>
+                    </div>
+
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{currentPrice}</span>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 flex flex-col">
+                        <span className="font-bold">/month</span>
+                        <span className="text-[10px]">{billingText}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 mb-6 text-xs space-y-1">
-                    <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                      <Zap className="w-3.5 h-3.5 text-[#25D366]" />
-                      Details:
-                    </div>
-                    <div className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-                      {plan.conversations}
+                  {/* Sub details info */}
+                  <div className="text-xs text-slate-600 dark:text-slate-300 space-y-1 font-medium pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <div>{plan.conversations}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      Additional charges apply for messages <Info className="w-3 h-3 text-slate-400" />
                     </div>
                   </div>
+
+                  {/* Top Select Plan Button */}
+                  <button
+                    onClick={() => onNavigate('demo')}
+                    className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer ${buttonStyle}`}
+                  >
+                    Select Plan
+                  </button>
 
                   {/* Features List */}
-                  <div className="space-y-3 mb-8">
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-slate-900 dark:text-white">Key Features:</div>
-                    {plan.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 leading-snug">
-                        <Check className="w-4 h-4 text-[#25D366] shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
+                  <div className="space-y-3 pt-2">
+                    <div className="text-xs font-bold text-slate-900 dark:text-white">
+                      {plan.featuresHeader || 'Key features'}
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
+                      {plan.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                          <span className="text-slate-400 font-bold shrink-0">•</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
+
+                  {/* Usage Section */}
+                  <div className="space-y-2 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <div className="text-xs font-bold text-slate-900 dark:text-white">Usage</div>
+                    <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                      {plan.usage.map((u, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-slate-400 shrink-0">•</span>
+                          <span>{u}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                 </div>
 
-                <button
-                  onClick={() => onNavigate('demo')}
-                  className={`w-full py-4 rounded-xl font-black text-sm text-center transition-all flex items-center justify-center gap-2 border-2 cursor-pointer ${
-                    plan.highlight
-                      ? 'bg-[#25D366] border-[#25D366] text-slate-950 shadow-lg shadow-[#25D366]/25 hover:bg-[#20bd5a]'
-                      : 'border-slate-900 dark:border-slate-700 text-slate-900 dark:text-white hover:bg-slate-900 hover:text-white dark:hover:bg-slate-800'
-                  }`}
-                >
-                  Select Plan
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                {/* Bottom Select Plan Button */}
+                <div className="pt-6">
+                  <button
+                    onClick={() => onNavigate('demo')}
+                    className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer ${buttonStyle}`}
+                  >
+                    Select Plan
+                  </button>
+                </div>
 
               </div>
             );

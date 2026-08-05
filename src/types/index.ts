@@ -1,17 +1,18 @@
 export interface PricingPlan {
   id: string;
   title: string;
-  price: string;
-  originalPrice?: string;
+  annualPrice: string;
+  annualOriginalPrice?: string;
+  monthlyPrice: string;
+  monthlyOriginalPrice?: string;
   subtitle: string;
-  period: string;
   conversations: string;
-  apiAccess: string;
-  support: string;
-  integrations: string[];
+  featuresHeader?: string;
   features: string[];
+  usage: string[];
   active: boolean;
   highlight?: boolean;
+  cardColor?: string;
 }
 
 export interface DemoRequest {
