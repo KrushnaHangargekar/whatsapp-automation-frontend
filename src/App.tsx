@@ -1,0 +1,113 @@
+import React, { useState } from 'react';
+import { NavTab } from '@/types';
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/footer';
+import { ThemeProvider } from '@/components/theme-provider';
+
+// Home Section Components
+import { Hero } from '@/components/home/hero';
+import { TrustedBrands } from '@/components/home/trusted-brands';
+import { KeyBenefits } from '@/components/home/key-benefits';
+import { DemoShowcase } from '@/components/home/demo-showcase';
+import { CTASection } from '@/components/home/cta-section';
+
+// Tool Components
+import { WhatsAppLinkGeneratorComponent } from '@/components/whatsapp-link-generator-component';
+import { QrGeneratorComponent } from '@/components/qr-generator-component';
+import { TemplateBuilderComponent } from '@/components/template-builder-component';
+
+// Page Components
+import { FeaturesPage } from '@/pages/FeaturesPage';
+import { SolutionsPage } from '@/pages/SolutionsPage';
+import { PricingPage } from '@/pages/PricingPage';
+import { DocsPage } from '@/pages/DocsPage';
+import { ContactPage } from '@/pages/ContactPage';
+import { DemoPage } from '@/pages/DemoPage';
+
+export function App() {
+  const [currentTab, setCurrentTab] = useState<NavTab>('home');
+
+  const handleNavigate = (tab: NavTab) => {
+    setCurrentTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const renderContent = () => {
+    switch (currentTab) {
+      case 'home':
+        return (
+          <div className="space-y-0">
+            <Hero onNavigate={handleNavigate} />
+            <TrustedBrands />
+            <KeyBenefits onNavigate={handleNavigate} />
+            <DemoShowcase />
+            <CTASection onNavigate={handleNavigate} />
+          </div>
+        );
+      case 'features':
+        return <FeaturesPage onNavigate={handleNavigate} />;
+      case 'solutions':
+        return <SolutionsPage onNavigate={handleNavigate} />;
+      case 'pricing':
+        return <PricingPage onNavigate={handleNavigate} />;
+      case 'docs':
+        return <DocsPage />;
+      case 'contact':
+        return <ContactPage />;
+      case 'demo':
+        return <DemoPage />;
+      case 'link-generator':
+        return (
+          <div className="py-12 px-4 max-w-7xl mx-auto space-y-8">
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl font-extrabold text-white">WhatsApp Link Generator</h1>
+              <p className="text-sm text-slate-400">Create click-to-chat links with custom pre-filled greetings</p>
+            </div>
+            <WhatsAppLinkGeneratorComponent />
+          </div>
+        );
+      case 'qr-generator':
+        return (
+          <div className="py-12 px-4 max-w-7xl mx-auto space-y-8">
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl font-extrabold text-white">WhatsApp QR Code Generator</h1>
+              <p className="text-sm text-slate-400">Generate high-resolution PNG QR codes for marketing & packaging</p>
+            </div>
+            <QrGeneratorComponent />
+          </div>
+        );
+      case 'template-builder':
+        return (
+          <div className="py-12 px-4 max-w-7xl mx-auto space-y-8">
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl font-extrabold text-white">HSM Message Template Builder</h1>
+              <p className="text-sm text-slate-400">Design and preview Meta WhatsApp rich message templates in real-time</p>
+            </div>
+            <TemplateBuilderComponent />
+          </div>
+        );
+      default:
+        return (
+          <div className="space-y-0">
+            <Hero onNavigate={handleNavigate} />
+            <TrustedBrands />
+            <KeyBenefits onNavigate={handleNavigate} />
+            <DemoShowcase />
+            <CTASection onNavigate={handleNavigate} />
+          </div>
+        );
+    }
+  };
+
+  return (
+    <ThemeProvider>
+      <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col justify-between">
+        <Navbar currentTab={currentTab} onNavigate={handleNavigate} />
+        <main className="flex-grow">{renderContent()}</main>
+        <Footer onNavigate={handleNavigate} />
+      </div>
+    </ThemeProvider>
+  );
+}
+
+export default App;
