@@ -1,118 +1,169 @@
-import { DemoRequest, ContactMessage, PricingPlan, ApiEndpoint } from '@/types';
+import { DemoRequest, ContactMessage, PricingPlan, ApiEndpoint, CreditPack, CreditConsumptionRule } from '@/types';
 
 export const INITIAL_PRICING_PLANS: PricingPlan[] = [
   {
-    id: 'plan-growth',
-    title: 'Growth',
-    annualPrice: '₹2199',
-    annualOriginalPrice: '₹2749',
-    monthlyPrice: '₹2699',
-    monthlyOriginalPrice: '₹3374',
-    subtitle: 'Reach thousands of customers with automations that keep conversations moving 24*7',
-    conversations: 'Connect any 1 Channel. 3 Users Included. No additional users. Additional charges apply for messages',
-    featuresHeader: 'Key features',
+    id: 'starter',
+    title: 'Starter Plan',
+    monthlyPrice: '₹1,499',
+    monthlyOriginalPrice: '₹1,899',
+    annualPrice: '₹1,199',
+    annualOriginalPrice: '₹1,499',
+    subtitle: 'Essential automation & shared inbox tools for small support and sales teams starting out.',
+    agentSeats: '2 Agents (AGENT role)',
+    agentSeatsCount: 2,
+    expansionCost: '₹499 / agent / month',
+    expansionCostValue: 499,
+    aiCredits: '500 AI Credits / mo',
+    aiCreditsCount: 500,
+    wabaAccounts: '1 Official WhatsApp Number',
+    featuresHeader: 'Core Features Included',
     features: [
-      'Zero-fee WhatsApp setup: Get Official WhatsApp API, Blue Tick Verification help',
-      'Omnichannel inbox: WhatsApp Messages, WhatsApp Business Calling, FB, Instagram, QR code, widget, wa.me',
-      'Campaigns: Run broadcast campaigns, automate DM and comment engagement on Instagram and FB Messenger',
-      'Acquire leads: Launch CTWA ads and capture leads on WhatsApp',
-      'Team inbox staples: Assign, track, automate follow-ups, tag & report',
-      'E-Commerce tools: WhatsApp Catalog, Shopify abandon cart & order templates',
-      '24x5 Email Support: in English and Portuguese, with basic SLA coverage'
+      'Live Shared Inbox with Real-Time Customer Chat',
+      'Basic Keyword Auto-Responder Rules',
+      '2 Active Visual Drag-and-Drop Chatbot Flows (ReactFlow)',
+      'Product Catalog Management (Up to 20 Products)',
+      'In-Chat Razorpay Payment Link Generator',
+      'Dynamic CSV Broadcast Variable Mapper ({{1}}, {{2}}, {{3}})',
+      'Sharp.js High-Performance Image Compression (WebP)'
     ],
-    usage: [
-      '15k Broadcasts/month, Standard rates',
-      '1,000 Free Automation triggers/month',
-      '2 select Commerce/CRM integrations',
-      '10k API calls/mon, No Webhooks',
-      '250 Free AI Co-pilot credits/mon'
+    excludedFeatures: [
+      'Gemini 1.5 Smart AI Assistant Copilot',
+      'Round-Robin Multi-Agent Auto Assignment'
     ],
     active: true,
     highlight: false,
-    cardColor: 'blue'
+    cardColor: 'sky'
   },
   {
-    id: 'plan-pro',
-    title: 'Pro',
-    annualPrice: '₹4899',
-    annualOriginalPrice: '₹6124',
-    monthlyPrice: '₹6499',
-    monthlyOriginalPrice: '₹8124',
-    subtitle: 'Turn conversations into conversions. AI qualify leads, nurtures them, and built-in analytics show you what\'s driving revenue.',
-    conversations: '5 Users Included. Additional Users @ ₹1299/user/month. Additional charges apply for messages',
-    featuresHeader: 'Everything in Growth, plus:',
+    id: 'pro',
+    title: 'Pro Plan',
+    monthlyPrice: '₹3,999',
+    monthlyOriginalPrice: '₹4,999',
+    annualPrice: '₹3,199',
+    annualOriginalPrice: '₹3,999',
+    subtitle: 'Autonomous AI copilot, unlimited chatbot flows & advanced SLA analytics to scale revenue.',
+    agentSeats: '5 Agents (AGENT or ADMIN roles)',
+    agentSeatsCount: 5,
+    expansionCost: '₹399 / agent / month',
+    expansionCostValue: 399,
+    aiCredits: '2,500 AI Credits / mo',
+    aiCreditsCount: 2500,
+    wabaAccounts: '1 Official WhatsApp Number',
+    featuresHeader: 'Everything in Starter, plus:',
     features: [
-      'Auto-qualify leads: Advanced chatbots, forms, integrations & IG automation',
-      'Boost conversion: Smart retargeting, Carousel template & Catalog pay options',
-      'Optimize Campaigns: CTWA source tags, click tracking & engagement insights',
-      '✨ Advanced Automation: Answer queries, collect information, send reminders & more with powerful chatbots',
-      '✨ Astra AI Agents: Create and deploy AI Agents to web, WhatsApp and voice (Astra add-on, priced separately)',
-      'Advanced team inbox: Teams, auto routing, and operator reports',
-      'Drive Shopify sales: Campaign based on buyer data, Shopflo/Gokwik checkout',
-      '24x7 Email & Chat Support: Standard SLAs to support your operations'
-    ],
-    usage: [
-      'Unlimited Broadcasts, Standard rates',
-      '2,000 Free Automation triggers/month',
-      '5 integrations incl. Hubspot',
-      '200k API calls/mon, Limited Webhooks',
-      '500 Free AI Co-pilot credits/mon'
+      'Gemini 1.5 AI Smart Copilot & Automated FAQ Assistant',
+      'Autonomous E-Commerce Bot (Auto Product Lookup + Auto Razorpay Payment Link Dispatch)',
+      'Multi-Agent Round-Robin Auto Assignment',
+      'Agent SLA Performance Analytics & First Response Time (FRT) Leaderboard',
+      'Unlimited Active Visual Chatbot Flows',
+      'Unlimited Product Catalog Items',
+      'Broadcast Campaign Analytics (Sent, Delivered, Read, Replied Attribution)',
+      'Quick Reply Snippets (/ shortcut autocomplete)'
     ],
     active: true,
     highlight: true,
+    badge: 'Most Popular',
     cardColor: 'emerald'
   },
   {
-    id: 'plan-business',
-    title: 'Business',
-    annualPrice: '₹14799',
-    annualOriginalPrice: '₹18499',
-    monthlyPrice: '₹18499',
-    monthlyOriginalPrice: '₹23124',
-    subtitle: 'Your full revenue engine. Advanced AI agents + multiple numbers to handle entire customer journeys: with dedicated expert support.',
-    conversations: '5 Users Included. Additional Users @ ₹2199/user/month. Additional charges apply for messages',
-    featuresHeader: 'Everything in Pro +',
+    id: 'enterprise',
+    title: 'Enterprise Plan',
+    monthlyPrice: '₹8,999',
+    monthlyOriginalPrice: '₹11,249',
+    annualPrice: '₹7,199',
+    annualOriginalPrice: '₹8,999',
+    subtitle: 'High-volume infrastructure with custom AI fine-tuning, webhook integrations & dedicated SLA.',
+    agentSeats: '15 Agents included',
+    agentSeatsCount: 15,
+    expansionCost: '₹299 / agent / month',
+    expansionCostValue: 299,
+    aiCredits: '10,000 AI Credits / mo',
+    aiCreditsCount: 10000,
+    wabaAccounts: 'Up to 3 WhatsApp Numbers',
+    featuresHeader: 'Everything in Pro, plus:',
     features: [
-      'Scale effortlessly: Send 4k messages/min, get volume discounts & SMS fallback',
-      'G Official Google Partner: Asia\'s only Google Ads to WhatsApp Provider',
-      'Best-in-class ROI: Optimize CTWA ads, track conversion, use WhatsApp Pay API',
-      'Run teams smoothly: Multiple WhatsApp numbers & round-robin chat assignment',
-      'Dedicated Customer Success Manager for strategic recommendations',
-      'Enhance privacy & compliance: Phone number masking, Roles & IP Whitelisting',
-      'Priority 24x7 Email & Chat support, with access to paid TAM services'
-    ],
-    usage: [
-      'Unlimited Broadcasts, Volume discounts',
-      '5,000 Free Automation triggers/month',
-      'Unlimited integrations incl. Salesforce',
-      '20M API calls/mon, Extensive Webhooks',
-      '1500 Free AI Co-pilot credits/mon',
-      'Blitz add-on: Send 12k messages/min'
+      'Dedicated Account Manager & Priority WhatsApp Support',
+      'Custom AI Knowledgebase Fine-Tuning & Prompt Customization',
+      'Webhook Workflows & Third-Party System Integration (Shopify/WooCommerce/Custom CRM)',
+      'Advanced SLA Breach Escalation Alerts',
+      '99.9% Uptime Service Level Agreement (SLA)'
     ],
     active: true,
     highlight: false,
+    badge: 'Custom Scale',
     cardColor: 'purple'
+  }
+];
+
+export const ADDON_CREDIT_PACKS: CreditPack[] = [
+  {
+    id: 'pack-1',
+    price: '₹500',
+    priceValue: 500,
+    credits: '1,000 Credits',
+    creditsCount: 1000,
+    perCreditRate: '₹0.50 / credit'
+  },
+  {
+    id: 'pack-2',
+    price: '₹1,500',
+    priceValue: 1500,
+    credits: '3,500 Credits',
+    creditsCount: 3500,
+    perCreditRate: '₹0.42 / credit',
+    highlight: true,
+    badge: 'Best Value'
+  },
+  {
+    id: 'pack-3',
+    price: '₹3,500',
+    priceValue: 3500,
+    credits: '10,000 Credits',
+    creditsCount: 10000,
+    perCreditRate: '₹0.35 / credit'
+  }
+];
+
+export const AI_CREDIT_CONSUMPTION_METRICS: CreditConsumptionRule[] = [
+  {
+    icon: 'Sparkles',
+    title: 'Gemini 1.5 AI Suggested Reply',
+    description: 'Generates real-time suggested response for agent in Live Shared Inbox',
+    rate: '1 AI Credit'
+  },
+  {
+    icon: 'Bot',
+    title: 'Autonomous Commerce Bot Dispatch',
+    description: 'Auto-product catalog lookup + instant Razorpay payment link generation',
+    rate: '1 AI Credit'
+  },
+  {
+    icon: 'GitFork',
+    title: 'Multi-Step Visual Flow Execution',
+    description: 'Executes 1 complete automated interactive visual chatbot workflow run',
+    rate: '1 AI Credit'
   }
 ];
 
 export const WATI_FAQS = [
   {
-    q: 'What are WhatsApp Conversation Fees?',
-    a: 'WhatsApp charges per 24-hour conversation window rather than per individual message. A conversation window starts when the first message is delivered and remains open for 24 hours.'
+    q: 'How do Agent Seats & Expansion Costs work?',
+    a: 'Each tier includes a set number of agent seats (2 in Starter, 5 in Pro, 15 in Enterprise). Need more team members? Easily add extra agent seats at ₹499/mo (Starter), ₹399/mo (Pro), or ₹299/mo (Enterprise) per agent.'
   },
   {
-    q: 'How does Wabtic pricing work?',
-    a: 'Wabtic charges a flat monthly platform subscription fee (with 20% OFF across all tiers) plus standard Meta WhatsApp conversation charges passed through directly based on recipient country rates.'
+    q: 'What counts as 1 AI Credit?',
+    a: '1 AI Credit is consumed when generating 1 Gemini 1.5 AI suggested reply in the shared inbox, executing 1 autonomous e-commerce product lookup + payment link dispatch, or running 1 multi-step visual chatbot flow.'
   },
   {
-    q: 'What is included in the 1,000 Free Service Conversations?',
-    a: 'Meta provides 1,000 free service (user-initiated) conversations each month for every WhatsApp Business Account.'
+    q: 'What happens if I run out of AI Credits in a month?',
+    a: 'Your core inbox and manual agent features remain active! You can instantly top up AI credits anytime with Add-on Credit Packs starting from ₹500 for 1,000 credits (down to ₹0.35/credit).'
   },
   {
-    q: 'Can I upgrade or downgrade my plan at any time?',
-    a: 'Absolutely. You can switch plans or change your subscription directly from your Wabtic settings panel at any time.'
+    q: 'Can I upgrade or downgrade my subscription plan at any time?',
+    a: 'Yes, you can upgrade, downgrade, or update agent seat allocations directly from your account settings with prorated billing adjustments.'
   }
 ];
+
 
 export const INITIAL_DEMO_REQUESTS: DemoRequest[] = [
   {

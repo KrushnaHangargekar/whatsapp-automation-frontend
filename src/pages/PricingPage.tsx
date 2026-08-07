@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import { 
   Check, 
+  X, 
   ArrowRight, 
   ShieldCheck, 
   ChevronDown, 
-  Star,
-  Zap,
-  Calculator,
-  Tag,
-  Info,
-  Sparkles
+  Star, 
+  Zap, 
+  Calculator, 
+  Tag, 
+  Info, 
+  Sparkles, 
+  Users, 
+  Bot, 
+  GitFork, 
+  CreditCard, 
+  PhoneCall,
+  Plus
 } from 'lucide-react';
-import { INITIAL_PRICING_PLANS, WATI_FAQS } from '@/lib/initial-data';
+import { INITIAL_PRICING_PLANS, ADDON_CREDIT_PACKS, AI_CREDIT_CONSUMPTION_METRICS, WATI_FAQS } from '@/lib/initial-data';
 import { NavTab } from '@/types';
 
 interface PricingPageProps {
@@ -19,38 +26,39 @@ interface PricingPageProps {
 }
 
 export function PricingPage({ onNavigate }: PricingPageProps) {
-  const [annual, setAnnual] = useState(true);
+  const [annual, setAnnual] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
-  const [calcVolume, setCalcVolume] = useState<number>(25000);
+  
+  // Calculator state
+  const [calcPlanId, setCalcPlanId] = useState<string>('pro');
+  const [selectedAgentCount, setSelectedAgentCount] = useState<number>(5);
 
-  const metaFeeEst = Math.round(calcVolume * 0.008);
+  const selectedPlan = INITIAL_PRICING_PLANS.find(p => p.id === calcPlanId) || INITIAL_PRICING_PLANS[1];
+  const basePriceValue = parseInt(selectedPlan.monthlyPrice.replace(/[^0-9]/g, ''));
+  const extraAgents = Math.max(0, selectedAgentCount - selectedPlan.agentSeatsCount);
+  const extraAgentsCost = extraAgents * selectedPlan.expansionCostValue;
+  const totalCalculatedCost = basePriceValue + extraAgentsCost;
 
   return (
-    <div className="pt-10 pb-24 space-y-16">
+    <div className="pt-10 pb-24 space-y-20">
       
-      {/* Header Banner matching screenshot */}
+      {/* Header Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+          <Sparkles className="w-3.5 h-3.5" /> Simple, Predictable Pricing • 7-Day Free Trial
+        </div>
+
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          7 days free trial, zero setup fees and affordable pricing
+          Flexible Plans to Scale Your WhatsApp Commerce & Support
         </h1>
 
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium">
-          Up to -25% off & <span className="underline font-semibold">free dedicated onboarding</span> with annual subscription
+          Choose from transparent tiers with dedicated agent seats, AI copilot credits, and high-performance WhatsApp features.
         </p>
 
-        {/* Toggle Pills: Annual / Monthly */}
+        {/* Toggle Pills: Monthly / Annual */}
         <div className="pt-4 flex items-center justify-center gap-2">
           <div className="flex items-center gap-1.5 p-1 bg-slate-200/80 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-800">
-            <button
-              onClick={() => setAnnual(true)}
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                annual 
-                  ? 'bg-emerald-400 text-slate-950 shadow' 
-                  : 'text-slate-600 dark:text-slate-400 hover:text-white'
-              }`}
-            >
-              Annual
-            </button>
             <button
               onClick={() => setAnnual(false)}
               className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
@@ -59,7 +67,20 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
                   : 'text-slate-600 dark:text-slate-400 hover:text-white'
               }`}
             >
-              Monthly
+              Monthly Billing
+            </button>
+            <button
+              onClick={() => setAnnual(true)}
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                annual 
+                  ? 'bg-emerald-400 text-slate-950 shadow' 
+                  : 'text-slate-600 dark:text-slate-400 hover:text-white'
+              }`}
+            >
+              <span>Annual Billing</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 text-[10px] font-black">
+                Save 20%
+              </span>
             </button>
           </div>
         </div>
@@ -67,166 +88,322 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
 
       {/* 3 Pricing Cards Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {INITIAL_PRICING_PLANS.map((plan) => {
             const currentPrice = annual ? plan.annualPrice : plan.monthlyPrice;
             const originalPrice = annual ? plan.annualOriginalPrice : plan.monthlyOriginalPrice;
             const billingText = annual ? 'billed annually' : 'billed monthly';
 
-            const cardBorder = 
-              plan.id === 'plan-growth' ? 'border-sky-300 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-950/20' :
-              plan.id === 'plan-pro' ? 'border-emerald-400 dark:border-emerald-700 bg-emerald-50/40 dark:bg-emerald-950/20' :
-              'border-pink-300 dark:border-pink-800 bg-pink-50/40 dark:bg-pink-950/20';
+            const cardStyle = 
+              plan.id === 'starter' ? 'border-sky-300 dark:border-sky-800/80 bg-white dark:bg-slate-900' :
+              plan.id === 'pro' ? 'border-emerald-400 dark:border-emerald-500 bg-white dark:bg-slate-900 ring-2 ring-emerald-400/20' :
+              'border-purple-300 dark:border-purple-800/80 bg-white dark:bg-slate-900';
 
             const buttonStyle = 
-              plan.id === 'plan-growth' ? 'bg-sky-400 hover:bg-sky-500 text-slate-950 shadow' :
-              plan.id === 'plan-pro' ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950 shadow' :
-              'bg-pink-300 hover:bg-pink-400 text-slate-950 shadow';
+              plan.id === 'starter' ? 'bg-sky-500 hover:bg-sky-600 text-white shadow-md' :
+              plan.id === 'pro' ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950 shadow-md font-extrabold' :
+              'bg-purple-600 hover:bg-purple-700 text-white shadow-md';
 
             return (
               <div
                 key={plan.id}
-                className={`rounded-3xl p-6 sm:p-7 border-2 flex flex-col justify-between transition-all duration-300 relative shadow-lg ${cardBorder}`}
+                className={`rounded-3xl p-6 sm:p-8 border-2 flex flex-col justify-between transition-all duration-300 relative shadow-xl ${cardStyle}`}
               >
-                {plan.highlight && (
-                  <div className="absolute -top-3.5 right-6 px-4 py-1 rounded-full bg-amber-300 text-slate-950 text-xs font-black border border-amber-400 shadow-sm">
-                    Best Value
+                {plan.badge && (
+                  <div className="absolute -top-3.5 right-6 px-4 py-1 rounded-full bg-emerald-400 text-slate-950 text-xs font-black border border-emerald-500 shadow-sm">
+                    {plan.badge}
                   </div>
                 )}
 
                 <div className="space-y-6">
                   {/* Header Title & Subtitle */}
                   <div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">{plan.title}</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed min-h-[40px]">
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{plan.title}</h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed min-h-[38px]">
                       {plan.subtitle}
                     </p>
                   </div>
 
-                  {/* Price Section with Strike-through Original Price & 20% OFF */}
-                  <div className="space-y-1">
+                  {/* Price Section */}
+                  <div className="space-y-1 pt-1 border-t border-slate-100 dark:border-slate-800/80">
                     <div className="flex items-center gap-2">
                       {originalPrice && (
                         <span className="text-sm font-bold text-slate-400 line-through">
                           {originalPrice}
                         </span>
                       )}
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold">
-                        20% OFF
-                      </span>
+                      {annual && (
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold">
+                          20% OFF
+                        </span>
+                      )}
                     </div>
 
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{currentPrice}</span>
                       <div className="text-xs text-slate-500 dark:text-slate-400 flex flex-col">
-                        <span className="font-bold">/month</span>
+                        <span className="font-bold">/ Month</span>
                         <span className="text-[10px]">{billingText}</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Sub details info */}
-                  <div className="text-xs text-slate-600 dark:text-slate-300 space-y-1 font-medium pb-2 border-b border-slate-200 dark:border-slate-800">
-                    <div>{plan.conversations}</div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                      Additional charges apply for messages <Info className="w-3 h-3 text-slate-400" />
+                  {/* Key Quota Badges */}
+                  <div className="space-y-2.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                        <Users className="w-3.5 h-3.5 text-emerald-400" /> Seats Included:
+                      </span>
+                      <span className="font-bold text-slate-900 dark:text-white">{plan.agentSeats}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400" /> AI Credits:
+                      </span>
+                      <span className="font-bold text-slate-900 dark:text-white">{plan.aiCredits}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                        <PhoneCall className="w-3.5 h-3.5 text-sky-400" /> WhatsApp WABA:
+                      </span>
+                      <span className="font-bold text-slate-900 dark:text-white">{plan.wabaAccounts}</span>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
+                      <span className="text-slate-500 dark:text-slate-400 font-medium">Expansion Rate:</span>
+                      <span className="font-semibold text-emerald-600 dark:text-emerald-400">{plan.expansionCost}</span>
                     </div>
                   </div>
 
-                  {/* Top Select Plan Button */}
+                  {/* Action Button */}
                   <button
                     onClick={() => onNavigate('demo')}
-                    className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer ${buttonStyle}`}
+                    className={`w-full py-3 rounded-xl font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${buttonStyle}`}
                   >
-                    Select Plan
+                    <span>Get Started</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
 
-                  {/* Features List */}
+                  {/* Included Features List */}
                   <div className="space-y-3 pt-2">
-                    <div className="text-xs font-bold text-slate-900 dark:text-white">
-                      {plan.featuresHeader || 'Key features'}
+                    <div className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] text-slate-400">
+                      {plan.featuresHeader || 'Core Features Included'}
                     </div>
 
                     <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-300">
                       {plan.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2 leading-relaxed">
-                          <span className="text-slate-400 font-bold shrink-0">•</span>
+                        <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                          <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Usage Section */}
-                  <div className="space-y-2 pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <div className="text-xs font-bold text-slate-900 dark:text-white">Usage</div>
-                    <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
-                      {plan.usage.map((u, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-slate-400 shrink-0">•</span>
-                          <span>{u}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {/* Excluded Features List (if any) */}
+                  {plan.excludedFeatures && plan.excludedFeatures.length > 0 && (
+                    <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                      <div className="text-xs font-bold text-rose-500 dark:text-rose-400 uppercase tracking-wider text-[11px]">
+                        Features Excluded
+                      </div>
+                      <ul className="space-y-2 text-xs text-slate-400 dark:text-slate-500 line-through">
+                        {plan.excludedFeatures.map((exc, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                            <X className="w-4 h-4 text-rose-400 shrink-0 mt-0.5 no-underline" />
+                            <span className="no-underline">{exc}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                 </div>
-
-                {/* Bottom Select Plan Button */}
-                <div className="pt-6">
-                  <button
-                    onClick={() => onNavigate('demo')}
-                    className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer ${buttonStyle}`}
-                  >
-                    Select Plan
-                  </button>
-                </div>
-
               </div>
             );
           })}
         </div>
       </section>
 
-      {/* Interactive Conversation Fee Estimator */}
+      {/* Credit Consumption Metrics Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold">
+            <Zap className="w-3.5 h-3.5" /> Clear & Transparent Credit Consumption
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
+            What Does 1 AI Credit Get You?
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+            AI credits power high-value copilot responses, autonomous lookup bots, and multi-step flow triggers.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {AI_CREDIT_CONSUMPTION_METRICS.map((metric, index) => (
+            <div 
+              key={index}
+              className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-4 flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">
+                  {index === 0 ? <Sparkles className="w-5 h-5 text-amber-400" /> :
+                   index === 1 ? <Bot className="w-5 h-5 text-emerald-400" /> :
+                   <GitFork className="w-5 h-5 text-sky-400" />}
+                </div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">{metric.title}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {metric.description}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold">
+                <span className="text-slate-400">Consumption Rate:</span>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-mono">
+                  {metric.rate}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Add-on Credit Top-Up Packs Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="bg-slate-900 rounded-3xl p-8 sm:p-12 border border-slate-800 space-y-8 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full filter blur-3xl pointer-events-none" />
+
+          <div className="text-center space-y-2 relative z-10">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+              Add-on AI Credit Top-Up Packs
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+              Need extra AI capacity during campaign spikes? Top up credits instantly with zero expiration limits.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+            {ADDON_CREDIT_PACKS.map((pack) => (
+              <div
+                key={pack.id}
+                className={`rounded-2xl p-6 border flex flex-col justify-between space-y-6 transition-all ${
+                  pack.highlight
+                    ? 'border-emerald-400 bg-emerald-950/20 shadow-lg ring-1 ring-emerald-400/40 relative'
+                    : 'border-slate-800 bg-slate-950/80'
+                }`}
+              >
+                {pack.badge && (
+                  <div className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black">
+                    {pack.badge}
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Top-Up Pack</span>
+                    <span className="px-2 py-0.5 rounded bg-slate-800 text-emerald-400 text-[11px] font-mono font-bold">
+                      {pack.perCreditRate}
+                    </span>
+                  </div>
+
+                  <div>
+                    <div className="text-3xl font-black text-white font-mono">{pack.price}</div>
+                    <div className="text-lg font-bold text-emerald-400 mt-1">{pack.credits}</div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => onNavigate('demo')}
+                  className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    pack.highlight
+                      ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950'
+                      : 'bg-slate-800 hover:bg-slate-700 text-white'
+                  }`}
+                >
+                  <Plus className="w-3.5 h-3.5" /> Add Credits
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Agent Seats & Cost Calculator */}
       <section className="max-w-4xl mx-auto px-4">
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 sm:p-10 border border-slate-200 dark:border-slate-800 space-y-6 shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold">
+            <div className="w-12 h-12 rounded-2xl bg-sky-500/15 text-sky-400 flex items-center justify-center font-bold">
               <Calculator className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Estimate Monthly Meta Conversation Fees</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Meta charges based on 24-hour conversation windows (1,000 service conversations are free every month)</p>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Interactive Plan & Agent Seat Calculator</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Calculate total monthly cost based on plan tier and required agent seats</p>
             </div>
           </div>
 
+          {/* Plan Selector */}
+          <div className="space-y-2 pt-2">
+            <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">Select Base Plan:</label>
+            <div className="grid grid-cols-3 gap-3">
+              {INITIAL_PRICING_PLANS.map((plan) => (
+                <button
+                  key={plan.id}
+                  onClick={() => {
+                    setCalcPlanId(plan.id);
+                    if (selectedAgentCount < plan.agentSeatsCount) {
+                      setSelectedAgentCount(plan.agentSeatsCount);
+                    }
+                  }}
+                  className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                    calcPlanId === plan.id
+                      ? 'border-emerald-400 bg-emerald-500/10 text-emerald-400'
+                      : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400'
+                  }`}
+                >
+                  <div>{plan.title}</div>
+                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">{plan.monthlyPrice}/mo</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Agent Seats Slider */}
           <div className="space-y-4 pt-2">
             <div className="flex justify-between items-center text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300">Expected Monthly Conversations:</span>
-              <span className="text-xl font-black text-emerald-400 font-mono">{calcVolume.toLocaleString()} / mo</span>
+              <span className="font-bold text-slate-700 dark:text-slate-300">Total Agent Seats Needed:</span>
+              <span className="text-xl font-black text-emerald-400 font-mono">{selectedAgentCount} Agents</span>
             </div>
 
             <input
               type="range"
-              min="5000"
-              max="250000"
-              step="5000"
-              value={calcVolume}
-              onChange={(e) => setCalcVolume(parseInt(e.target.value))}
+              min={selectedPlan.agentSeatsCount}
+              max="50"
+              step="1"
+              value={selectedAgentCount}
+              onChange={(e) => setSelectedAgentCount(parseInt(e.target.value))}
               className="w-full accent-emerald-500 cursor-pointer"
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs">
-              <div className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <span className="text-slate-400 block font-medium">Estimated Meta Pass-through Fee</span>
-                <span className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono">${metaFeeEst} / mo</span>
-                <span className="text-[10px] text-slate-400 block mt-1">Based on global average $0.008 per 24h window</span>
+              <div className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1">
+                <span className="text-slate-400 block font-medium">Included Seats ({selectedPlan.title})</span>
+                <span className="text-lg font-bold text-slate-900 dark:text-white">{selectedPlan.agentSeatsCount} Seats Included</span>
+                {extraAgents > 0 && (
+                  <span className="text-[11px] text-emerald-600 dark:text-emerald-400 block">
+                    + {extraAgents} Additional @ ₹{selectedPlan.expansionCostValue}/agent
+                  </span>
+                )}
               </div>
-              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30">
-                <span className="text-emerald-400 block font-bold">Free Meta Allowance Included</span>
-                <span className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono">1,000 / mo</span>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-1">Provided free every calendar month by Meta</span>
+
+              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-1">
+                <span className="text-emerald-400 block font-bold">Total Estimated Subscription</span>
+                <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">
+                  ₹{totalCalculatedCost.toLocaleString()} <span className="text-xs font-normal text-slate-400">/ mo</span>
+                </span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 block">
+                  Includes {selectedPlan.aiCredits} & {selectedPlan.wabaAccounts}
+                </span>
               </div>
             </div>
           </div>
@@ -237,7 +414,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
       <section className="max-w-4xl mx-auto px-4 space-y-8">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Everything you need to know about Wabtic plans and billing</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Everything you need to know about Wabtic plans, agent seats, and credit top-ups</p>
         </div>
 
         <div className="space-y-3">
@@ -269,3 +446,4 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
     </div>
   );
 }
+

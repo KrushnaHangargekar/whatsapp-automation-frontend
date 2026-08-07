@@ -6,14 +6,42 @@ export interface PricingPlan {
   monthlyPrice: string;
   monthlyOriginalPrice?: string;
   subtitle: string;
-  conversations: string;
+  agentSeats: string;
+  agentSeatsCount: number;
+  expansionCost: string;
+  expansionCostValue: number;
+  aiCredits: string;
+  aiCreditsCount: number;
+  wabaAccounts: string;
+  conversations?: string;
   featuresHeader?: string;
   features: string[];
-  usage: string[];
+  excludedFeatures?: string[];
+  usage?: string[];
   active: boolean;
   highlight?: boolean;
+  badge?: string;
   cardColor?: string;
 }
+
+export interface CreditPack {
+  id: string;
+  price: string;
+  priceValue: number;
+  credits: string;
+  creditsCount: number;
+  perCreditRate: string;
+  highlight?: boolean;
+  badge?: string;
+}
+
+export interface CreditConsumptionRule {
+  icon: string;
+  title: string;
+  description: string;
+  rate: string;
+}
+
 
 export interface DemoRequest {
   id: string;
