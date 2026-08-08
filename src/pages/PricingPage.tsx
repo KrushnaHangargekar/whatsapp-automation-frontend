@@ -351,7 +351,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
       </section>
 
       {/* Interactive Agent Seats & Cost Calculator */}
-      <section className="max-w-4xl mx-auto px-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 sm:p-10 border border-slate-200 dark:border-slate-800 space-y-6 shadow-xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-sky-500/15 text-sky-400 flex items-center justify-center font-bold">
@@ -366,7 +366,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
           {/* Plan Selector */}
           <div className="space-y-2 pt-2">
             <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">Select Base Plan:</label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {INITIAL_PRICING_PLANS.map((plan) => (
                 <button
                   key={plan.id}
@@ -376,7 +376,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
                       setSelectedAgentCount(plan.agentSeatsCount);
                     }
                   }}
-                  className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                  className={`p-3.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                     calcPlanId === plan.id
                       ? 'border-emerald-400 bg-emerald-500/10 text-emerald-400'
                       : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400'
@@ -432,13 +432,13 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
       </section>
 
       {/* FAQ Accordion Section */}
-      <section className="max-w-4xl mx-auto px-4 space-y-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Everything you need to know about Wabtic plans, agent seats, and credit top-ups</p>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Everything you need to know about Wabtic plans, agent seats, and credit top-ups</p>
         </div>
 
-        <div className="space-y-3">
+        <div className="max-w-4xl mx-auto space-y-3">
           {WATI_FAQS.map((faq, index) => {
             const isOpen = expandedFaq === index;
             return (
@@ -467,4 +467,5 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
     </div>
   );
 }
+
 
