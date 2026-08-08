@@ -22,11 +22,11 @@ export function Footer({ onNavigate }: FooterProps) {
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-900/80 pt-16 pb-12 w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* Main Grid: 5 Columns on Desktop for perfect full-width alignment */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 pb-12 border-b border-slate-900">
+        {/* Main Grid: 2 columns on mobile (Platform left, Dev Tools right), 5 columns on Desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 pb-12 border-b border-slate-900">
           
-          {/* Brand Info (Spans 2 columns on desktop) */}
-          <div className="space-y-4 sm:col-span-2 lg:col-span-2">
+          {/* Brand Info (Spans full width on mobile, 2 columns on desktop) */}
+          <div className="col-span-2 lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-[#25D366] flex items-center justify-center text-slate-950 font-extrabold shadow-md shadow-emerald-500/20">
                 <MessageSquare className="w-5 h-5 fill-current" />
@@ -44,8 +44,8 @@ export function Footer({ onNavigate }: FooterProps) {
             </div>
           </div>
 
-          {/* Column 1: Platform Links */}
-          <div className="space-y-4">
+          {/* Column 1: Platform Links (Left side on Mobile) */}
+          <div className="col-span-1 lg:col-span-1 space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Platform</h4>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
@@ -71,8 +71,8 @@ export function Footer({ onNavigate }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 2: Developer Tools */}
-          <div className="space-y-4">
+          {/* Column 2: Developer Tools (Right side on Mobile) */}
+          <div className="col-span-1 lg:col-span-1 space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Developer Tools</h4>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
@@ -98,8 +98,8 @@ export function Footer({ onNavigate }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 3: Newsletter & Stay Updated (Fills the right-side gap) */}
-          <div className="space-y-4 sm:col-span-2 lg:col-span-1">
+          {/* Column 3: Newsletter & Stay Updated */}
+          <div className="col-span-2 lg:col-span-1 space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Stay Connected</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               Get WhatsApp API updates & automation guides delivered to your inbox.
@@ -133,15 +133,13 @@ export function Footer({ onNavigate }: FooterProps) {
 
         </div>
 
-        {/* Bottom Bar: Perfectly balanced left & right */}
+        {/* Bottom Bar: Copyright on left, links on right */}
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 pt-2">
           <p>© {new Date().getFullYear()} Wabtic Inc. All rights reserved.</p>
           <div className="flex items-center gap-4 text-xs">
             <button onClick={() => onNavigate('docs')} className="hover:text-slate-400 transition-colors">API Docs</button>
             <span>•</span>
             <button onClick={() => onNavigate('contact')} className="hover:text-slate-400 transition-colors">Contact Support</button>
-            <span>•</span>
-            <span className="text-slate-400 font-medium">Built with pure React & Tailwind CSS</span>
           </div>
         </div>
 
@@ -149,4 +147,5 @@ export function Footer({ onNavigate }: FooterProps) {
     </footer>
   );
 }
+
 
