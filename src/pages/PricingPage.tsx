@@ -148,34 +148,55 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
                     </div>
                   </div>
 
-                  {/* Key Quota Badges */}
-                  <div className="space-y-2.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-xs">
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
-                        <Users className="w-3.5 h-3.5 text-emerald-400" /> Seats Included:
+                  {/* Key Quota Badges Container - Perfectly Aligned */}
+                  <div className="space-y-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/80 text-xs">
+                    
+                    {/* Seats Included */}
+                    <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-slate-200/60 dark:border-slate-800/60">
+                      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium shrink-0 pt-0.5">
+                        <Users className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>Agent Seats:</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white text-right leading-snug">
+                        {plan.agentSeats}
                       </span>
-                      <span className="font-bold text-slate-900 dark:text-white">{plan.agentSeats}</span>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
-                        <Sparkles className="w-3.5 h-3.5 text-amber-400" /> AI Credits:
+                    {/* AI Credits */}
+                    <div className="flex items-center justify-between gap-3 pb-2.5 border-b border-slate-200/60 dark:border-slate-800/60">
+                      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium shrink-0">
+                        <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                        <span>AI Credits:</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white text-right">
+                        {plan.aiCredits}
                       </span>
-                      <span className="font-bold text-slate-900 dark:text-white">{plan.aiCredits}</span>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
-                        <PhoneCall className="w-3.5 h-3.5 text-sky-400" /> WhatsApp WABA:
+                    {/* WhatsApp WABA */}
+                    <div className="flex items-center justify-between gap-3 pb-2.5 border-b border-slate-200/60 dark:border-slate-800/60">
+                      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium shrink-0">
+                        <PhoneCall className="w-4 h-4 text-sky-400 shrink-0" />
+                        <span>WhatsApp WABA:</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white text-right">
+                        {plan.wabaAccounts}
                       </span>
-                      <span className="font-bold text-slate-900 dark:text-white">{plan.wabaAccounts}</span>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-500 dark:text-slate-400 font-medium">Expansion Rate:</span>
-                      <span className="font-semibold text-emerald-600 dark:text-emerald-400">{plan.expansionCost}</span>
+                    {/* Expansion Rate */}
+                    <div className="flex items-center justify-between gap-3 pt-0.5">
+                      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium shrink-0">
+                        <Plus className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>Extra Agent Cost:</span>
+                      </div>
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400 text-right">
+                        {plan.expansionCost}
+                      </span>
                     </div>
+
                   </div>
+
 
                   {/* Action Button */}
                   <button
