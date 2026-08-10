@@ -104,4 +104,12 @@ export type NavTab =
   | 'demo'
   | 'link-generator'
   | 'qr-generator'
-  | 'template-builder';
+  | 'template-builder'
+  | 'about'
+  | 'careers'
+  | 'branding'
+  | 'terms'
+  | 'privacy'
+  | 'refund'
+  | 'customers';
+

@@ -70,10 +70,12 @@ export function ContactPage() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Global Headquarters</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">
-                  548 Market Street, Suite 900<br />
-                  San Francisco, CA 94104, United States
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Registered Physical Office</h4>
+                <p className="text-xs font-semibold text-[#25D366] mt-0.5">PROWEXA TECHNOLOGIES PRIVATE LIMITED</p>
+                <p className="text-xs text-slate-400 font-mono">CIN: U62090PN2025PTC249889</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
+                  S.No.50/14/4/4, Near Patil House, Gokulnagar,<br />
+                  Haveli, Pune, Maharashtra, 411041, India
                 </p>
               </div>
             </div>
@@ -84,7 +86,7 @@ export function ContactPage() {
               </div>
               <div>
                 <h4 className="font-bold text-slate-900 dark:text-white text-sm">Email Support</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">support@wabtic.com</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">support@wabtic.com | support@prowexa.com</p>
               </div>
             </div>
 
@@ -94,10 +96,11 @@ export function ContactPage() {
               </div>
               <div>
                 <h4 className="font-bold text-slate-900 dark:text-white text-sm">Support Hours</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">24/7 Global Coverage for Enterprise SLA Plans</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">24/7 Priority Support & Gateway Verification Desk</p>
               </div>
             </div>
           </div>
+
 
         </div>
 

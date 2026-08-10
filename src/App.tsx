@@ -23,6 +23,13 @@ import { PricingPage } from '@/pages/PricingPage';
 import { DocsPage } from '@/pages/DocsPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { DemoPage } from '@/pages/DemoPage';
+import { AboutPage } from '@/pages/AboutPage';
+import { CareersPage } from '@/pages/CareersPage';
+import { BrandingPage } from '@/pages/BrandingPage';
+import { TermsPage } from '@/pages/TermsPage';
+import { PrivacyPage } from '@/pages/PrivacyPage';
+import { RefundPage } from '@/pages/RefundPage';
+import { CustomersPage } from '@/pages/CustomersPage';
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
@@ -56,6 +63,20 @@ export function App() {
         return <ContactPage />;
       case 'demo':
         return <DemoPage />;
+      case 'about':
+        return <AboutPage onNavigate={handleNavigate} />;
+      case 'careers':
+        return <CareersPage />;
+      case 'branding':
+        return <BrandingPage />;
+      case 'terms':
+        return <TermsPage />;
+      case 'privacy':
+        return <PrivacyPage />;
+      case 'refund':
+        return <RefundPage />;
+      case 'customers':
+        return <CustomersPage onNavigate={handleNavigate} />;
       case 'link-generator':
         return (
           <div className="py-12 px-4 max-w-7xl mx-auto space-y-8">

@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { 
-  Check, 
-  X, 
-  ArrowRight, 
-  ShieldCheck, 
-  ChevronDown, 
-  Star, 
-  Zap, 
-  Calculator, 
-  Tag, 
-  Info, 
-  Sparkles, 
-  Users, 
-  Bot, 
-  GitFork, 
-  CreditCard, 
+import {
+  Check,
+  X,
+  ArrowRight,
+  ShieldCheck,
+  ChevronDown,
+  Star,
+  Zap,
+  Calculator,
+  Tag,
+  Info,
+  Sparkles,
+  Users,
+  Bot,
+  GitFork,
+  CreditCard,
   PhoneCall,
   Plus
 } from 'lucide-react';
@@ -28,7 +28,7 @@ interface PricingPageProps {
 export function PricingPage({ onNavigate }: PricingPageProps) {
   const [annual, setAnnual] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
-  
+
   // Calculator state
   const [calcPlanId, setCalcPlanId] = useState<string>('pro');
   const [selectedAgentCount, setSelectedAgentCount] = useState<number>(5);
@@ -41,7 +41,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
 
   return (
     <div className="pt-10 pb-24 space-y-20">
-      
+
       {/* Header Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
@@ -61,21 +61,19 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
           <div className="flex items-center gap-1.5 p-1 bg-slate-200/80 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-800">
             <button
               onClick={() => setAnnual(false)}
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                !annual 
-                  ? 'bg-emerald-400 text-slate-950 shadow' 
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${!annual
+                  ? 'bg-emerald-400 text-slate-950 shadow'
                   : 'text-slate-600 dark:text-slate-400 hover:text-white'
-              }`}
+                }`}
             >
               Monthly Billing
             </button>
             <button
               onClick={() => setAnnual(true)}
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                annual 
-                  ? 'bg-emerald-400 text-slate-950 shadow' 
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${annual
+                  ? 'bg-emerald-400 text-slate-950 shadow'
                   : 'text-slate-600 dark:text-slate-400 hover:text-white'
-              }`}
+                }`}
             >
               <span>Annual Billing</span>
               <span className="px-1.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 text-[10px] font-black">
@@ -94,15 +92,15 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
             const originalPrice = annual ? plan.annualOriginalPrice : plan.monthlyOriginalPrice;
             const billingText = annual ? 'billed annually' : 'billed monthly';
 
-            const cardStyle = 
+            const cardStyle =
               plan.id === 'starter' ? 'border-sky-300 dark:border-sky-800/80 bg-white dark:bg-slate-900' :
-              plan.id === 'pro' ? 'border-emerald-400 dark:border-emerald-500 bg-white dark:bg-slate-900 ring-2 ring-emerald-400/20' :
-              'border-purple-300 dark:border-purple-800/80 bg-white dark:bg-slate-900';
+                plan.id === 'pro' ? 'border-emerald-400 dark:border-emerald-500 bg-white dark:bg-slate-900 ring-2 ring-emerald-400/20' :
+                  'border-purple-300 dark:border-purple-800/80 bg-white dark:bg-slate-900';
 
-            const buttonStyle = 
+            const buttonStyle =
               plan.id === 'starter' ? 'bg-sky-500 hover:bg-sky-600 text-white shadow-md' :
-              plan.id === 'pro' ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950 shadow-md font-extrabold' :
-              'bg-purple-600 hover:bg-purple-700 text-white shadow-md';
+                plan.id === 'pro' ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950 shadow-md font-extrabold' :
+                  'bg-purple-600 hover:bg-purple-700 text-white shadow-md';
 
             return (
               <div
@@ -150,7 +148,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
 
                   {/* Key Quota Badges Container - Perfectly Aligned */}
                   <div className="space-y-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/80 text-xs">
-                    
+
                     {/* Seats Included */}
                     <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-slate-200/60 dark:border-slate-800/60">
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium shrink-0 pt-0.5">
@@ -263,15 +261,15 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {AI_CREDIT_CONSUMPTION_METRICS.map((metric, index) => (
-            <div 
+            <div
               key={index}
               className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-4 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">
                   {index === 0 ? <Sparkles className="w-5 h-5 text-amber-400" /> :
-                   index === 1 ? <Bot className="w-5 h-5 text-emerald-400" /> :
-                   <GitFork className="w-5 h-5 text-sky-400" />}
+                    index === 1 ? <Bot className="w-5 h-5 text-emerald-400" /> :
+                      <GitFork className="w-5 h-5 text-sky-400" />}
                 </div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">{metric.title}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -308,11 +306,10 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
             {ADDON_CREDIT_PACKS.map((pack) => (
               <div
                 key={pack.id}
-                className={`rounded-2xl p-6 border flex flex-col justify-between space-y-6 transition-all ${
-                  pack.highlight
+                className={`rounded-2xl p-6 border flex flex-col justify-between space-y-6 transition-all ${pack.highlight
                     ? 'border-emerald-400 bg-emerald-950/20 shadow-lg ring-1 ring-emerald-400/40 relative'
                     : 'border-slate-800 bg-slate-950/80'
-                }`}
+                  }`}
               >
                 {pack.badge && (
                   <div className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black">
@@ -336,11 +333,10 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
 
                 <button
                   onClick={() => onNavigate('demo')}
-                  className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-                    pack.highlight
+                  className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 ${pack.highlight
                       ? 'bg-emerald-400 hover:bg-emerald-500 text-slate-950'
                       : 'bg-slate-800 hover:bg-slate-700 text-white'
-                  }`}
+                    }`}
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Credits
                 </button>
@@ -376,11 +372,10 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
                       setSelectedAgentCount(plan.agentSeatsCount);
                     }
                   }}
-                  className={`p-3.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                    calcPlanId === plan.id
+                  className={`p-3.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${calcPlanId === plan.id
                       ? 'border-emerald-400 bg-emerald-500/10 text-emerald-400'
                       : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400'
-                  }`}
+                    }`}
                 >
                   <div>{plan.title}</div>
                   <div className="text-[10px] text-slate-400 font-mono mt-0.5">{plan.monthlyPrice}/mo</div>
