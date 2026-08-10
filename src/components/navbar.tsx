@@ -40,7 +40,6 @@ export function Navbar({ currentTab, onNavigate }: NavbarProps) {
   const companyLinks: { id: NavTab; label: string; icon: any }[] = [
     { id: 'about', label: 'About Us', icon: Building },
     { id: 'careers', label: 'Careers', icon: Briefcase },
-    { id: 'branding', label: 'Branding', icon: Palette },
     { id: 'terms', label: 'Terms', icon: FileText },
     { id: 'privacy', label: 'Privacy', icon: Shield },
   ];

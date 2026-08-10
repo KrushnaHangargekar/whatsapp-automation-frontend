@@ -64,11 +64,6 @@ export function Footer({ onNavigate }: FooterProps) {
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('branding')} className="hover:text-emerald-400 transition-colors text-slate-300 text-left cursor-pointer">
-                  Branding Assets
-                </button>
-              </li>
-              <li>
                 <button onClick={() => onNavigate('customers')} className="hover:text-emerald-400 transition-colors text-slate-300 text-left cursor-pointer">
                   Featured Customers
                 </button>
