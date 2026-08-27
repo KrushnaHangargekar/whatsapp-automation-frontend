@@ -325,7 +325,7 @@ requests.post('https://api.wabtic.com/v1/messages/text', json={'to': '+141555526
           fulfillment_status: 'COMPLETED',
           activation_latency: '1.2s',
           tax_invoice_number: 'INV-2026-08-9981',
-          wallet_balance_credited: 'INR 4718.80'
+          account_credits_allocated: '10,000 AI Credits'
         }
       }
     ],

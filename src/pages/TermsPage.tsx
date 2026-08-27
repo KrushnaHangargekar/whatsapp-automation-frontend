@@ -298,13 +298,13 @@ export function TermsPage() {
         {/* Section 12 */}
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-rose-500" /> 12. Refunds
+            <Ban className="w-5 h-5 text-rose-500" /> 12. Non-Refundable Policy
           </h2>
           <p>
-            Wabtic does not provide a general money-back guarantee. Subscription payments and AI Credit/Messaging Credit purchases are generally non-refundable, except where a refund is required by applicable law or expressly approved by Wabtic.
+            Subscription payments and AI Credit/Messaging Credit purchases are non-refundable, except where required by applicable law.
           </p>
           <p className="text-xs text-slate-400 font-semibold">
-            Consumed credits are not refundable. Unused credits are not refundable.
+            Consumed credits are non-refundable. Unused credits are non-refundable.
           </p>
         </section>
 
