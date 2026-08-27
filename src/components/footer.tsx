@@ -44,7 +44,11 @@ export function Footer({ onNavigate }: FooterProps) {
               </p>
               <p className="flex items-start gap-1.5 text-slate-400 leading-relaxed pt-1">
                 <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
-                S.No.50/14/4/4, Near Patil House, Gokulnagar, Haveli, Pune, Maharashtra, 411041, India
+                <span><strong>Reg. Office:</strong> S.No.50/14/4/4, Near Patil House, Gokulnagar, Haveli, Pune, MH 411041</span>
+              </p>
+              <p className="flex items-start gap-1.5 text-slate-400 leading-relaxed">
+                <Building className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
+                <span><strong>Business Office:</strong> Smartworks 43EQ, Plot A, opposite Bharti Vidyapeeth School, Balewadi, Pune, MH 411045</span>
               </p>
             </div>
           </div>
@@ -92,12 +96,12 @@ export function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <button onClick={() => onNavigate('refund')} className="hover:text-emerald-400 transition-colors text-slate-300 text-left cursor-pointer">
-                  Refund & Cancellation
+                  Cancellation Policy
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('terms')} className="hover:text-emerald-400 transition-colors text-slate-400 text-left text-[11px] cursor-pointer">
-                  Closed System PPI Terms
+                  Subscription & Credit Terms
                 </button>
               </li>
               <li>
@@ -150,7 +154,7 @@ export function Footer({ onNavigate }: FooterProps) {
             <span>•</span>
             <button onClick={() => onNavigate('privacy')} className="text-slate-300 hover:text-emerald-400 transition-colors cursor-pointer">Privacy</button>
             <span>•</span>
-            <button onClick={() => onNavigate('refund')} className="text-slate-300 hover:text-emerald-400 transition-colors cursor-pointer">Refund Policy</button>
+            <button onClick={() => onNavigate('refund')} className="text-slate-300 hover:text-emerald-400 transition-colors cursor-pointer">Cancellation Policy</button>
             <span>•</span>
             <button onClick={() => onNavigate('contact')} className="text-slate-300 hover:text-emerald-400 transition-colors cursor-pointer">Contact Us</button>
           </div>

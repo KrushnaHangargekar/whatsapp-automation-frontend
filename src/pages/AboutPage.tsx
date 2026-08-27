@@ -73,7 +73,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <Shield className="w-6 h-6 text-[#25D366]" /> Corporate Integrity & Compliance
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            Operating legally as <strong>PROWEXA TECHNOLOGIES PRIVATE LIMITED</strong> (CIN: U62090PN2025PTC249889), we adhere strictly to RBI Know-Your-Customer guidelines, PCI DSS v4.0.1 payment tokenization standards, and RBI Closed System Prepaid Payment Instrument (PPI) regulations.
+            Operating legally as <strong>PROWEXA TECHNOLOGIES PRIVATE LIMITED</strong> (CIN: U62090PN2025PTC249889), we adhere strictly to RBI Know-Your-Customer guidelines, PCI DSS v4.0.1 payment tokenization standards, and RBI data localization directives.
           </p>
         </div>
       </div>
@@ -105,7 +105,8 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <h3 className="text-xl font-extrabold text-white">PROWEXA TECHNOLOGIES PRIVATE LIMITED</h3>
             <p className="text-xs font-mono text-emerald-400">CIN: U62090PN2025PTC249889 | Govt. MCA Registered Entity</p>
             <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
-              Registered Physical Address: S.No.50/14/4/4, Near Patil House, Gokulnagar, Haveli, Pune, Maharashtra, 411041, India.
+              <strong>Registered Office:</strong> S.No.50/14/4/4, Near Patil House, Gokulnagar, Haveli, Pune, Maharashtra, 411041, India.<br />
+              <strong>Business / Corporate Office:</strong> Smartworks 43EQ, Plot A, opposite Bharti Vidyapeeth School, Balewadi, Pune, Maharashtra 411045.
             </p>
           </div>
           <button

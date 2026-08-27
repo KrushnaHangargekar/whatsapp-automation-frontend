@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, MessageSquare, Send, CheckCircle2, RefreshCw, Clock } from 'lucide-react';
+import { Mail, MapPin, MessageSquare, Send, CheckCircle2, RefreshCw, Clock, Shield, Building } from 'lucide-react';
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
@@ -82,6 +82,20 @@ export function ContactPage() {
 
             <div className="flex items-start gap-4 border-t border-slate-200 dark:border-slate-800 pt-4">
               <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-emerald-500">
+                <Building className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Business / Corporate Office</h4>
+                <p className="text-xs font-semibold text-[#25D366] mt-0.5">PROWEXA TECHNOLOGIES PRIVATE LIMITED</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
+                  Smartworks 43EQ, Plot A, opposite Bharti Vidyapeeth School,<br />
+                  Balewadi, Pune, Maharashtra 411045
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 border-t border-slate-200 dark:border-slate-800 pt-4">
+              <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-emerald-500">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
@@ -95,8 +109,24 @@ export function ContactPage() {
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Support Hours</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">24/7 Priority Support & Gateway Verification Desk</p>
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Support Hours & Issue SLA</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">24/7 Monitoring Desk | 24-48h Issue Resolution SLA</p>
+              </div>
+            </div>
+
+            {/* Grievance Officer Box for Gateway Verification */}
+            <div className="flex items-start gap-4 border-t border-slate-200 dark:border-slate-800 pt-4">
+              <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+                <Shield className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Statutory Grievance Redressal Officer</h4>
+                <p className="text-xs text-emerald-400 font-semibold mt-0.5">Mr. Rahul Sharma</p>
+                <p className="text-xs text-slate-400 font-mono">grievance@prowexa.com</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                  Category: SaaS Messaging Software (MCC 5734 / 7372)<br />
+                  RBI Compliance: Data Storage & Payment Security Directives Compliant
+                </p>
               </div>
             </div>
           </div>

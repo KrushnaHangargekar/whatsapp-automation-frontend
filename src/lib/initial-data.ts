@@ -147,6 +147,18 @@ export const AI_CREDIT_CONSUMPTION_METRICS: CreditConsumptionRule[] = [
 
 export const WATI_FAQS = [
   {
+    q: 'What is your Subscription Cancellation & Credit Policy?',
+    a: 'Subscriptions can be cancelled at any time through your account settings to stop future billing renewals. Purchased credits and prepaid balances are non-refundable, non-transferable, and remain in your account for your business use through Wabtic. Our engineering support team guarantees 24 to 48 hour resolution for any technical or platform inquiries.'
+  },
+  {
+    q: 'How are payments processed, and is it compliant with RBI rules?',
+    a: 'All transactions are processed in INR (₹) via PCI DSS v4.0.1 certified Indian Payment Gateways (Razorpay, Cashfree, Stripe) with 256-bit TLS encryption. In compliance with RBI directives, card details are tokenised and transaction data is stored in Indian GCP data centers.'
+  },
+  {
+    q: 'How fast is digital service fulfillment upon payment?',
+    a: 'Fulfillment is 100% instant (&lt; 60 seconds). Once payment authorization is confirmed by the gateway webhook, your account subscription dashboard, Meta WhatsApp API keys, and credit allocations are activated automatically.'
+  },
+  {
     q: 'How do Agent Seats & Expansion Costs work?',
     a: 'Each tier includes a set number of agent seats (2 in Starter, 5 in Pro, 15 in Enterprise). Need more team members? Easily add extra agent seats at ₹499/mo (Starter), ₹399/mo (Pro), or ₹299/mo (Enterprise) per agent.'
   },
@@ -157,10 +169,6 @@ export const WATI_FAQS = [
   {
     q: 'What happens if I run out of AI Credits in a month?',
     a: 'Your core inbox and manual agent features remain active! You can instantly top up AI credits anytime with Add-on Credit Packs starting from ₹500 for 1,000 credits (down to ₹0.35/credit).'
-  },
-  {
-    q: 'Can I upgrade or downgrade my subscription plan at any time?',
-    a: 'Yes, you can upgrade, downgrade, or update agent seat allocations directly from your account settings with prorated billing adjustments.'
   }
 ];
 
@@ -278,5 +286,97 @@ requests.post('https://api.wabtic.com/v1/messages/text', json={'to': '+141555526
       php: `<?php echo "curl request to wabtic"; ?>`,
       curl: `curl -X POST "https://api.wabtic.com/v1/messages/text" -H "Authorization: Bearer WABTIC_KEY" -d '{"to":"+14155552671","text":"Hello"}'`
     }
+  },
+  {
+    id: 'pg-webhook',
+    category: 'Payment Gateway Integration',
+    title: 'Razorpay / Cashfree Webhook Handler',
+    description: 'Receive real-time payment events from PCI-DSS v4.0.1 compliant gateways to trigger instant digital SaaS fulfillment and account credit allocations.',
+    method: 'POST',
+    endpoint: '/v1/payments/webhook',
+    headers: {
+      'X-Razorpay-Signature': '25a7a9...hmac_sha256_hash...',
+      'Content-Type': 'application/json'
+    },
+    bodyParams: [
+      { name: 'event', type: 'string', required: true, description: 'Event type (e.g. payment.captured, subscription.charged)' },
+      { name: 'payload', type: 'object', required: true, description: 'Gateway payload containing payment_id, order_id, amount_in_paisa' }
+    ],
+    samplePayload: {
+      event: 'payment.captured',
+      payload: {
+        payment: {
+          id: 'pay_P9a8b7c6d5',
+          order_id: 'order_Wabtic_9981',
+          amount: 471880,
+          currency: 'INR',
+          status: 'captured',
+          method: 'upi',
+          vpa: 'user@okhdfcbank'
+        }
+      }
+    },
+    sampleResponses: [
+      {
+        status: 200,
+        title: 'Instant Service Provisioned',
+        body: {
+          success: true,
+          fulfillment_status: 'COMPLETED',
+          activation_latency: '1.2s',
+          tax_invoice_number: 'INV-2026-08-9981',
+          wallet_balance_credited: 'INR 4718.80'
+        }
+      }
+    ],
+    codeSamples: {
+      node: `const crypto = require('crypto');
+function verifyWebhook(body, signature, secret) {
+  const expected = crypto.createHmac('sha256', secret).update(body).digest('hex');
+  return expected === signature;
+}`,
+      python: `import hmac, hashlib
+def verify_sig(body, sig, secret):
+    expected = hmac.new(secret.encode(), body.encode(), hashlib.sha256).hexdigest()
+    return expected == sig`,
+      php: `<?php $expected = hash_hmac('sha256', $body, $secret); ?>`,
+      curl: `curl -X POST "https://api.wabtic.com/v1/payments/webhook" -H "Content-Type: application/json" -d '{"event":"payment.captured"}'`
+    }
+  },
+  {
+    id: 'merchant-compliance',
+    category: 'RBI & Merchant Compliance',
+    title: 'Merchant Registration & Verification Info',
+    description: 'Fetch official merchant identity, RBI data localization status, MCC classification, and statutory grievance details for payment gateway audits.',
+    method: 'GET',
+    endpoint: '/v1/compliance/merchant',
+    headers: {
+      'Authorization': 'Bearer wabtic_live_sk_9f8d7c6b5a4e3d2c1b0a'
+    },
+    bodyParams: [],
+    samplePayload: null,
+    sampleResponses: [
+      {
+        status: 200,
+        title: 'Merchant Verification Data',
+        body: {
+          legal_entity: 'PROWEXA TECHNOLOGIES PRIVATE LIMITED',
+          cin: 'U62090PN2025PTC249889',
+          brand_name: 'Wabtic',
+          mcc_codes: ['5734', '7372'],
+          rbi_compliance: 'DATA_LOCALIZATION_COMPLIANT',
+          data_localization: 'GCP_MUMBAI_ASIA_SOUTH1',
+          cancellation_policy: 'CREDITS_NON_REFUNDABLE_BUSINESS_USE_ONLY',
+          grievance_officer: 'Mr. Rahul Sharma (grievance@prowexa.com)'
+        }
+      }
+    ],
+    codeSamples: {
+      node: `const res = await axios.get('https://api.wabtic.com/v1/compliance/merchant');`,
+      python: `res = requests.get('https://api.wabtic.com/v1/compliance/merchant')`,
+      php: `<?php echo "Merchant Compliance Query"; ?>`,
+      curl: `curl -X GET "https://api.wabtic.com/v1/compliance/merchant"`
+    }
   }
 ];
+

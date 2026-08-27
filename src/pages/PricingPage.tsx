@@ -45,7 +45,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
       {/* Header Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5" /> Simple, Predictable Pricing • 7-Day Free Trial
+          <Sparkles className="w-3.5 h-3.5" /> Simple, Predictable Pricing • 100% Issue Resolution SLA • Instant Activation
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -53,7 +53,7 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
         </h1>
 
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium">
-          Choose from transparent tiers with dedicated agent seats, AI copilot credits, and high-performance WhatsApp features.
+          Choose from transparent tiers with dedicated agent seats, AI copilot credits, and high-performance WhatsApp features. All purchases backed by our 100% Issue Resolution SLA.
         </p>
 
         {/* Toggle Pills: Monthly / Annual */}
@@ -242,6 +242,25 @@ export function PricingPage({ onNavigate }: PricingPageProps) {
               </div>
             );
           })}
+        </div>
+
+        {/* Commercial Terms & RBI Compliance Disclaimer Banner */}
+        <div className="mt-8 p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300 shadow-xl">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="font-bold text-white block text-sm">Non-Refundable Credit & Cancellation Policy | 24-48h Support SLA</span>
+              <p className="text-slate-400">All SaaS subscriptions and credit purchases are non-refundable. Purchased credits remain in your account for business use through Wabtic. Prices exclusive of 18% GST (GSTIN tax invoices generated automatically).</p>
+            </div>
+          </div>
+          <button 
+            onClick={() => onNavigate('refund')} 
+            className="px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl font-bold whitespace-nowrap cursor-pointer transition-colors"
+          >
+            Read Cancellation Policy
+          </button>
         </div>
       </section>
 

@@ -40,7 +40,7 @@ export function CareersPage() {
       location: 'Pune, MH',
       type: 'Full-Time',
       experience: '3-5 Years',
-      description: 'Oversee Razorpay/Stripe merchant onboarding, RBI Closed System PPI compliance, and PCI DSS security audit operations.',
+      description: 'Oversee Razorpay/Stripe merchant onboarding, RBI data storage compliance, and PCI DSS security audit operations.',
     },
   ];
 
