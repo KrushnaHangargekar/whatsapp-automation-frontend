@@ -99,16 +99,6 @@ export function Footer({ onNavigate }: FooterProps) {
                   Cancellation Policy
                 </button>
               </li>
-              <li>
-                <button onClick={() => onNavigate('terms')} className="hover:text-emerald-400 transition-colors text-slate-400 text-left text-[11px] cursor-pointer">
-                  Subscription & Credit Terms
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('privacy')} className="hover:text-emerald-400 transition-colors text-slate-400 text-left text-[11px] cursor-pointer">
-                  RBI Data Localization
-                </button>
-              </li>
             </ul>
           </div>
 
